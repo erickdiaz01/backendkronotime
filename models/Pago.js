@@ -2,6 +2,10 @@ const { Schema, model } = require("mongoose");
 
 const PagoSchema = Schema(
   {
+    pagoId: {
+      type: Schema.Types.ObjectId,
+      auto: true,
+    },
     modoPago: {
       type: Schema.Types.ObjectId,
       ref: "ModoDePago",
@@ -9,11 +13,11 @@ const PagoSchema = Schema(
     },
     fecha: {
       type: Date,
-      default: Date.now
+      default: Date.now,
     },
     aprobado: {
       type: Boolean,
-      required: true,
+      default: true,
     },
     valor: {
       type: Number,

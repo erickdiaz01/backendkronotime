@@ -2,6 +2,10 @@ const { Schema, model } = require("mongoose");
 
 const DetalleProductoSchema = Schema(
   {
+    detalleProductoId: {
+        type: Schema.Types.ObjectId,
+        auto: true,
+      },
     productos:[{
         producto:{
             type: Schema.Types.ObjectId,

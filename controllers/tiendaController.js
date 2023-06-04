@@ -22,71 +22,80 @@ const crearTienda = async (req, res = response) => {
       message: "Error al crear la tienda",
     });
   }
+};
+const getTiendas = async (req, res = response) => {
+  try {
+    const tiendas = await Tienda.find().populate("productos.producto");
 
-  const getTiendas = async (req, res = response) => {
-    try {
-      const tiendas = await Tienda.find();
+    res.status(200).json({
+      ok: true,
+      message: "Lista de Tiendas",
+      tiendas,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      ok: false,
+      message: "Error al buscar las tiendas",
+    });
+  }
+};
 
-      res.status(200).json({
-        ok: true,
-        message: "Lista de Tiendas",
-        tiendas,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        ok: false,
-        message: "Error al buscar las tiendas",
-      });
-    }
-  };
-
-  const getTienda = async (req, res = response) => {
-    try {
-      const tienda = await Tienda.findById(req.params.tiendaId);
-      res.json(tienda);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        ok: false,
-        message: "Error al buscar la tienda",
-      });
-    }
-  };
-
-  const editarTienda = async (req, res = response) => {
-    const { tiendaId, nombre, direccion } = req.body;
-    let tiendaActualizada = await Tienda.findOneAndUpdate(
-      { tiendaId: req.params.tiendaId },
-      { nombre, direccion }
+const getTienda = async (req, res = response) => {
+  try {
+    const tienda = await Tienda.findById(req.params.id).populate(
+      "productos.producto"
     );
-    if (!tiendaActualizada) {
-      return res.status(400).json({
-        ok: false,
-        message: "No existe la tienda a actualizar",
-      });
-    }
-    res.status(200).json({
-      ok: true,
-      message: "Tienda actualizada con exito",
-      nombre,
-      direccion,
+    res.json(tienda);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      ok: false,
+      message: "Error al buscar la tienda",
     });
-  };
+  }
+};
 
-  const eliminarTienda = async (req, res = response) => {
-    let tienda = await Tienda.findById(req.params.tiendaId);
-    if (!tienda) {
-      return res.status(400).json({
-        ok: false,
-        message: "No existe la tienda a eliminar",
-      });
-    }
-    tienda.delete();
-    res.status(200).json({
-      ok: true,
-      message: "Tienda eliminada",
-      tienda,
+const editarTienda = async (req, res = response) => {
+  const { nombre, direccion } = req.body;
+  let tiendaActualizada = await Tienda.findOneAndUpdate(
+    { tiendaId: req.params.id },
+    { nombre, direccion }
+  );
+  if (!tiendaActualizada) {
+    return res.status(400).json({
+      ok: false,
+      message: "No existe la tienda a actualizar",
     });
-  };
+  }
+  res.status(200).json({
+    ok: true,
+    message: "Tienda actualizada con exito",
+    nombre,
+    direccion,
+  });
+};
+
+const eliminarTienda = async (req, res = response) => {
+  let tienda = await Tienda.findById(req.params.id);
+  if (!tienda) {
+    return res.status(400).json({
+      ok: false,
+      message: "No existe la tienda a eliminar",
+    });
+  }
+  tienda.delete();
+  res.status(200).json({
+    ok: true,
+    message: "Tienda eliminada",
+    tienda,
+  });
+};
+
+module.exports = {
+  crearTienda,
+  getTiendas,
+  getTienda,
+  editarTienda,
+  eliminarTienda,
 };

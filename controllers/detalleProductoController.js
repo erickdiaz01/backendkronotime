@@ -64,7 +64,7 @@ const editarDetalleProducto = async (req, res = response) => {
   try {
     const { productos } = req.body;
     let detalleActualizado = await DetalleProducto.findOneAndUpdate(
-      { detalleProductoId: req.params.id },
+      { _id: req.params.id },
       { productos }
     );
     if (!detalleActualizado) {

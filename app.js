@@ -24,7 +24,7 @@ app.use("/api/cliente", require("./routes/clienteRouter"));
 
 app.use("/api/pago", require("./routes/pagoRouter"));
 
-app.use("/api/modopago", require("./routes/modoPagoRouter"));
+app.use("/api/mododepago", require("./routes/modoPagoRouter"));
 
 app.use("/api/detalleproducto", require("./routes/detalleProductoRouter"));
 

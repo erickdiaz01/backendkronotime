@@ -61,7 +61,7 @@ const editarPago = async (req, res = response) => {
   try {
     const { valor, aprobado, modoPago } = req.body;
     let pagoActualizado = await Pago.findOneAndUpdate(
-      { pagoId: req.params.id },
+      { _id: req.params.id },
       { valor, aprobado, modoPago }
     );
     if (!pagoActualizado) {

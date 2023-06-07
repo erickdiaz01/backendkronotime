@@ -60,7 +60,7 @@ const editarModoDePago = async (req, res = response) => {
   try {
     const {  tipo } = req.body;
     let modoDePagoActualizado = await ModoDePago.findOneAndUpdate(
-      { modoPagoId: req.params.id },
+      { _id: req.params.id },
       { tipo }
     );
     if (!modoDePagoActualizado) {

@@ -60,7 +60,7 @@ const editarCategoria = async (req, res = response) => {
   try {
     const { nombre } = req.body;
     let categoriaActualizada = await Categoria.findOneAndUpdate(
-      { categoriaId: req.params.id },
+      { _id: req.params.id },
       { nombre }
     );
     if (!categoriaActualizada) {
@@ -91,13 +91,15 @@ const eliminarCategoria = async (req, res = response) => {
         ok: false,
         message: "No existe la categoria a eliminar",
       });
+    } else {
+      Categoria.deleteOne({ _id: req.params.id }).then(() => {
+        res.status(200).json({
+          ok: true,
+          message: "Categoria eliminada",
+          categoria,
+        });
+      });
     }
-    categoria.delete();
-    res.status(200).json({
-      ok: true,
-      message: "Categoria eliminada",
-      categoria,
-    });
   } catch (error) {
     console.error(error);
     res.status(500).json({

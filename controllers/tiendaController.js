@@ -59,7 +59,7 @@ const getTienda = async (req, res = response) => {
 const editarTienda = async (req, res = response) => {
   const { nombre, direccion } = req.body;
   let tiendaActualizada = await Tienda.findOneAndUpdate(
-    { tiendaId: req.params.id },
+    { _id: req.params.id },
     { nombre, direccion }
   );
   if (!tiendaActualizada) {

@@ -5,17 +5,13 @@ const Producto = require("../models/Producto");
 const crearProducto = async (req, res = response) => {
   try {
     const { categoria, nombre, descripcion, costo } = req.body;
-    nuevoProducto = new Producto(req.body);
-    await nuevoProducto.save();
+    let nuevoProducto = new Producto(req.body);
+    let newProduct = await nuevoProducto.save();
 
     res.status(201).json({
       ok: true,
       message: "Producto creada",
-
-      categoria,
-      nombre,
-      descripcion,
-      costo,
+      producto: newProduct,
     });
   } catch (error) {
     console.error(error);
@@ -64,7 +60,7 @@ const editarProducto = async (req, res = response) => {
   try {
     const { categoria, nombre, descripcion, costo } = req.body;
     let productoActualizado = await Producto.findOneAndUpdate(
-      { productoId: req.params.id },
+      { _id: req.params.id },
       { categoria, nombre, descripcion, costo }
     );
     if (!productoActualizado) {

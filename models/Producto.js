@@ -2,10 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const ProductoSchema = Schema(
   {
-    productoId: {
-      type: Schema.Types.ObjectId,
-      auto: true,
-    },
+   
     categoria: {
       type: Schema.Types.ObjectId,
       ref: "Categoria",

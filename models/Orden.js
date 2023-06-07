@@ -3,14 +3,7 @@ const { Schema, model } = require("mongoose");
 const OrdenSchema = Schema(
   {
    
-    ordenId: {
-        type: Schema.Types.ObjectId,
-        auto: true,
-      }, cliente: {
-      type: Schema.Types.ObjectId,
-      ref: "Cliente",
-      required: true,
-    },
+
     pago: {
         type: Schema.Types.ObjectId,
         ref: "Pago",

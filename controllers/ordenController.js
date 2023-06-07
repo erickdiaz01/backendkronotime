@@ -67,7 +67,7 @@ const editarOrden = async (req, res = response) => {
   try {
     const { pago, detalleProductos, direccion, valorTotal } = req.body;
     let ordenActualizada = await Orden.findOneAndUpdate(
-      { ordenId: req.params.id },
+      { _id: req.params.id },
       { pago, detalleProductos, direccion, valorTotal }
     );
     if (!ordenActualizada) {

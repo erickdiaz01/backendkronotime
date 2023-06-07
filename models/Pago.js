@@ -2,10 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const PagoSchema = Schema(
   {
-    pagoId: {
-      type: Schema.Types.ObjectId,
-      auto: true,
-    },
+   
     modoPago: {
       type: Schema.Types.ObjectId,
       ref: "ModoDePago",
